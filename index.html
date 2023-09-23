@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Bookshelf Apps</title>
+  </head>
+  <body>
+    <h1 align="center">Bookshelf <span style="color:#2B2A4C">Apps<span></h1>
+    <div class="contents" align="center">
+      <div class="child-content" id="user-form">
+        <h2>Masukan Buku Baru</h2>
+        <hr />
+        <form id="form-data-user">
+          <div class="form-element">
+            <label for="judul">Judul</label><br />
+            <input id="judul" type="text" name="judul" placeholder="Judul" value="" maxlength="30" required /><br />
+          </div>
+          <div class="form-element">
+            <label for="penulis">Penulis</label><br />
+            <input id="penulis" type="text" name="penulis" placeholder="Penulis" value="" maxlength="30" required /><br />
+          </div>
+          <div class="form-element">
+            <label for="tahun">Tahun:</label><br />
+            <input type="number" id="tahun" class="year-input" placeholder="Tahun" min="0" max="2023" required />
+          </div>
+          <div class="form-element">
+            <label for="sudahdibaca">Sudah dibaca</label>
+            <input type="checkbox" id="isComplete" name="isComplete" value="" class="complete-checkbox" />
+          </div>
+          <div class="form-element">
+            <input id="submitButton" type="submit" value="Kirim" />
+          </div>
+        </form>
+      </div>
+
+      <div class="child-content" id="user-form">
+        <h2>Cari Buku (Opsional)</h2>
+        <hr />
+        <form id="form-data-user">
+          <div class="form-element">
+            <label for="judul">Judul</label>
+            <input id="judul" type="text" name="judul" placeholder="Judul" value="" maxlength="30" required />
+          </div>
+          <div class="form-element">
+            <input id="submitButton" type="submit" value="Kirim" />
+          </div>
+        </form>
+      </div>
+
+      <div class="child-content" id="user-list">
+        <h2>Belum Selesai Dibaca</h2>
+        <hr />
+        <div class="card-container" id="belum-dibaca-list"></div>
+      </div>
+
+      <div class="child-content" id="user-list">
+        <h2>Selesai Dibaca</h2>
+        <hr />
+        <div class="card-container" id="selesai-dibaca-list"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
