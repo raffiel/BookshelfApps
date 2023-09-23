@@ -179,3 +179,18 @@ window.addEventListener("load", function () {
     alert("Browser yang Anda gunakan tidak mendukung Web Storage");
   }
 });
+
+const form = document.getElementById("form-data-user");
+const popup = document.getElementById("popup");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // Tampilkan popup
+  popup.style.display = "block";
+
+  // Sembunyikan popup setelah 4 detik
+  setTimeout(function () {
+    popup.style.display = "none";
+  }, 4000);
+});
