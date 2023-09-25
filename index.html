@@ -35,11 +35,6 @@
         </form>
       </div>
 
-      <div id="popup" class="popup">
-          <img src="img/checklist.png" alt="Checklist" />
-          <h4 id="popupText"></h4>
-      </div>
-
 
       <div class="child-content" id="user-form">
         <h2>Cari Buku (Opsional)</h2>
@@ -61,17 +56,6 @@
         <div class="card-container" id="search-result-list"></div>
       </div>
 
-      <div id="confirm-popup" class="popup" style="display: none;">
-        <div class="overlay"></div>
-        <div class="popup-content">
-          <span class="close-popup">&times;</span>
-          <p>Apakah Anda ingin menghapus buku "<span id="book-name"></span>"?</p>
-          <button id="confirm-yes" class="confirm-button">Ya</button>
-          <button id="confirm-no" class="confirm-button">Tidak</button>
-        </div>
-      </div>
-      
-
       <div class="child-content" id="user-list">
         <h2>Belum Selesai Dibaca</h2>
         <hr />
@@ -87,5 +71,6 @@
     </div>
     
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

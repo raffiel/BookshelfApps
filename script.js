@@ -108,73 +108,28 @@ function moveBook(user) {
 
 function deleteBook(user) {
   const bookName = user.title;
-  const bookIndex = todos.findIndex((book) => book.id === user.id);
 
-  console.log("user.id:", user.id);
-  console.log("todos:", todos);
+  Swal.fire({
+    text: `Apakah kamu ingin menghapus buku "${bookName}"?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Ya",
+    cancelButtonText: "Tidak",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const bookIndex = todos.findIndex((book) => book.id === user.id);
 
-  const confirmPopup = document.getElementById("confirm-popup");
-  const bookNameSpan = document.getElementById("book-name");
+      if (bookIndex !== -1) {
+        todos.splice(bookIndex, 1);
+        putUserList();
+        renderUserList();
+      }
 
-  bookNameSpan.textContent = bookName;
-  confirmPopup.style.display = "block";
-
-  const closePopupButton = document.querySelector(".close-popup");
-  closePopupButton.addEventListener("click", function () {
-    confirmPopup.style.display = "none";
-  });
-
-  const confirmYesButton = document.getElementById("confirm-yes");
-  confirmYesButton.addEventListener("click", function () {
-    if (bookIndex !== -1) {
-      todos.splice(bookIndex, 1);
-      putUserList();
-      renderUserList();
+      Swal.fire("Deleted!", `Buku "${bookName}" telah dihapus.`, "success");
     }
-
-    confirmPopup.style.display = "none";
   });
-
-  const confirmNoButton = document.getElementById("confirm-no");
-  confirmNoButton.addEventListener("click", function () {
-    confirmPopup.style.display = "none";
-  });
-}
-
-const searchForm = document.getElementById("search-form");
-const searchResults = document.getElementById("search-results");
-const searchResultList = document.getElementById("search-result-list");
-
-searchForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const searchJudulInput = document.getElementById("search-judul").value.toLowerCase();
-  const userData = getUserList();
-  const searchResultsData = userData.filter((book) => {
-    const lowercaseJudul = book.judul.toLowerCase();
-    return lowercaseJudul.includes(searchJudulInput);
-  });
-
-  if (searchJudulInput.trim() !== "") {
-    displaySearchResults(searchResultsData);
-  } else {
-    searchResultList.innerHTML = "<p>Silakan masukkan kata kunci pencarian.</p>";
-    searchResults.style.display = "block";
-  }
-});
-
-function displaySearchResults(results) {
-  searchResultList.innerHTML = "";
-  if (results.length === 0) {
-    searchResultList.innerHTML = "<p>Buku tidak ditemukan</p>";
-  } else {
-    results.forEach((book) => {
-      const card = createBookCard(book);
-      searchResultList.appendChild(card);
-    });
-  }
-
-  searchResults.style.display = "block";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -184,11 +139,52 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     alert("Browser yang Anda gunakan tidak mendukung Web Storage");
   }
+
+  const searchForm = document.getElementById("search-form");
+  const searchResults = document.getElementById("search-results");
+  const searchResultList = document.getElementById("search-result-list");
+
+  searchForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Mencegah formulir untuk memuat ulang halaman
+
+    const searchJudulInput = document.getElementById("search-judul").value.toLowerCase();
+    const filteredData = todos.filter((book) => {
+      const lowercaseTitle = book.title.toLowerCase();
+      return lowercaseTitle.includes(searchJudulInput);
+    });
+
+    if (searchJudulInput.trim() !== "") {
+      // Memastikan formulir tidak kosong
+      displaySearchResults(filteredData);
+    } else {
+      // Menampilkan pesan jika formulir kosong
+      searchResultList.innerHTML = "<p>Silakan masukkan kata kunci pencarian.</p>";
+      searchResults.style.display = "block";
+    }
+  });
 });
 
+function displaySearchResults(results) {
+  const searchResults = document.getElementById("search-results");
+  const searchResultList = document.getElementById("search-result-list"); // Deklarasi ulang variabel
+  searchResultList.innerHTML = ""; // Bersihkan daftar hasil pencarian
+
+  if (results.length === 0) {
+    // Jika tidak ada hasil pencarian
+    searchResultList.innerHTML = "<p>Buku tidak ditemukan</p>";
+  } else {
+    // Jika ada hasil pencarian, tampilkan masing-masing buku dalam hasil
+    results.forEach((book) => {
+      const card = createBookCard(book);
+      searchResultList.appendChild(card);
+    });
+  }
+
+  // Tampilkan hasil pencarian
+  searchResults.style.display = "block";
+}
+
 const form = document.getElementById("form-data-user");
-const popup = document.getElementById("popup");
-const popupText = document.getElementById("popupText");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -198,11 +194,9 @@ form.addEventListener("submit", function (event) {
     judul: inputJudul,
   };
 
-  popupText.textContent = `Buku "${inputJudul}" berhasil ditambahkan`;
-
-  popup.style.display = "block";
-
-  setTimeout(function () {
-    popup.style.display = "none";
-  }, 4000);
+  Swal.fire({
+    icon: "success",
+    title: "Berhasil!",
+    text: `Buku "${inputJudul}" berhasil ditambahkan`,
+  });
 });
