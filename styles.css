@@ -21,8 +21,7 @@ input {
   border: 1px solid #ccc;
 }
 
-input:focus,
-textarea:focus {
+input:focus {
   outline-color: rgba(81, 203, 238, 1);
 }
 
@@ -46,7 +45,8 @@ textarea:focus {
   margin: 0;
 }
 
-#submitButton {
+#submitButton,
+#searchButton {
   background-color: #019bfb;
   color: #ffffff;
   padding: 10px;
@@ -55,16 +55,21 @@ textarea:focus {
   cursor: pointer;
 }
 
-#user-form {
+#user-form,
+#user-list,
+#search-result {
   background-color: #f5f3ee;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#user-list {
+#user-list,
+#search-results {
   background-color: #f5f3ee;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 1%;
+  width: 55%;
 }
 
 .contents {
@@ -84,11 +89,6 @@ textarea:focus {
 #user-form {
   width: 55%;
   height: 40%;
-}
-
-#user-list {
-  margin-top: 1%;
-  width: 55%;
 }
 
 #instructions-list {
@@ -170,6 +170,57 @@ button {
   width: 114px;
   height: 114px;
   animation: rotateCoin 1s linear;
+}
+
+#confirm-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 50;
+  display: none;
+}
+
+.popup-content {
+  position: relative;
+}
+
+.close-popup {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e63946;
+  z-index: 51;
+}
+
+.confirm-button {
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+#confirm-yes {
+  color: #e63946;
+  background-color: #ffffff;
+  border-color: #e63946;
+}
+
+#confirm-no {
+  background-color: #e63946;
+}
+
+#book-name {
+  font-weight: bold;
+  color: #2b2a4c;
 }
 
 @keyframes rotateCoin {

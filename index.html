@@ -23,10 +23,10 @@
           </div>
           <div class="form-element">
             <label for="tahun">Tahun:</label><br />
-            <input type="number" id="tahun" class="year-input" placeholder="Tahun" min="0" max="2023" required />
+            <input type="number" id="tahun" name="tahun" class="year-input" placeholder="Tahun" min="0" max="2023" required />
           </div>
           <div class="form-element">
-            <label for="sudahdibaca">Sudah dibaca</label>
+            <label for="isComplete">Sudah dibaca</label>
             <input type="checkbox" id="isComplete" name="isComplete" value="" class="complete-checkbox" />
           </div>
           <div class="form-element">
@@ -35,30 +35,49 @@
         </form>
       </div>
 
-        <div id="popup" class="popup">
+      <div id="popup" class="popup">
           <img src="img/checklist.png" alt="Checklist" />
-          <h4>Buku berhasil ditambahkan</h4>
+          <h4 id="popupText"></h4>
       </div>
+
 
       <div class="child-content" id="user-form">
         <h2>Cari Buku (Opsional)</h2>
         <hr />
-        <form id="form-data-user">
-          <div class="form-element">
-            <label for="judul">Judul</label>
-            <input id="judul" type="text" name="judul" placeholder="Judul" value="" maxlength="30" required />
-          </div>
-          <div class="form-element">
-            <input id="submitButton" type="submit" value="Kirim" />
-          </div>
+        <form id="search-form">
+            <div class="form-element">
+                <label for="search-judul">Judul</label>
+                <input id="search-judul" type="text" name="judul" placeholder="Judul" value="" maxlength="50" />
+            </div>
+            <div class="form-element">
+                <input id="searchButton" type="submit" value="Cari" />
+            </div>
         </form>
       </div>
+
+      <div class="child-content" id="search-results" style="display: none;" >
+        <h2>Hasil</h2>
+        <hr />
+        <div class="card-container" id="search-result-list"></div>
+      </div>
+
+      <div id="confirm-popup" class="popup" style="display: none;">
+        <div class="overlay"></div>
+        <div class="popup-content">
+          <span class="close-popup">&times;</span>
+          <p>Apakah Anda ingin menghapus buku "<span id="book-name"></span>"?</p>
+          <button id="confirm-yes" class="confirm-button">Ya</button>
+          <button id="confirm-no" class="confirm-button">Tidak</button>
+        </div>
+      </div>
+      
 
       <div class="child-content" id="user-list">
         <h2>Belum Selesai Dibaca</h2>
         <hr />
         <div class="card-container" id="belum-dibaca-list"></div>
       </div>
+
 
       <div class="child-content" id="user-list">
         <h2>Selesai Dibaca</h2>
