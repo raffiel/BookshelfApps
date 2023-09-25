@@ -100,5 +100,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or inquiries, feel free to contact us at raffifalih43@gmail.com.
 
->>>>>>> 42f5374195b263919c1b31739acdce8f8f4bdc75
-Happy reading and bookshelf management! 📚📖
