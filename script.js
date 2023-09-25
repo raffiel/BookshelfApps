@@ -58,7 +58,7 @@ function createBookCard(user) {
   });
 
   const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Hapus";
+  deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
   deleteButton.classList.add("delete-button");
   deleteButton.id = "deleteButton_" + user.id;
 
