@@ -66,10 +66,20 @@ function createBookCard(user) {
     deleteBook(user);
   });
 
+  const editButton = document.createElement("button");
+  editButton.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+  editButton.classList.add("edit-button");
+  editButton.id = "editButton_" + user.id;
+
+  editButton.addEventListener("click", function () {
+    editBook(user);
+  });
+
   card.appendChild(judul);
   card.appendChild(penulis);
   card.appendChild(tahun);
   card.appendChild(moveButton);
+  card.appendChild(editButton);
   card.appendChild(deleteButton);
 
   return card;
@@ -104,6 +114,81 @@ function moveBook(user) {
     putUserList();
     renderUserList();
   }
+}
+
+function editBook(user) {
+  const formHTML = `
+    <form id="edit-form-data-user">
+      <div class="form-element">
+        <label for="judul">Judul</label><br />
+        <input id="edit-judul" type="text" name="judul" placeholder="Judul" value="${user.title}" maxlength="50" required /><br />
+      </div>
+      <div class="form-element">
+        <label for="penulis">Penulis</label><br />
+        <input id="edit-penulis" type="text" name="penulis" placeholder="Penulis" value="${user.author}" maxlength="50" required /><br />
+      </div>
+      <div class="form-element">
+        <label for="tahun">Tahun:</label><br />
+        <input type="number" id="edit-tahun" name="tahun" class="year-input" placeholder="Tahun" value="${user.year}" min="0" max="2023" required />
+      </div>
+      <div class="form-element">
+        <label for="isComplete">Sudah dibaca</label>
+        <input type="checkbox" id="edit-isComplete" name="isComplete" ${user.isComplete ? "checked" : ""} class="complete-checkbox" />
+      </div>
+    </form>
+  `;
+
+  Swal.fire({
+    title: "Edit Buku",
+    html: formHTML,
+    confirmButtonText: "Simpan",
+    showCancelButton: true,
+    cancelButtonText: "Batal",
+    showCloseButton: "true",
+    preConfirm: () => {
+      const editedJudul = document.getElementById("edit-judul").value;
+      const editedPenulis = document.getElementById("edit-penulis").value;
+      const editedTahun = document.getElementById("edit-tahun").value;
+      const editedIsComplete = document.getElementById("edit-isComplete").checked;
+
+      // Simpan perubahan ke data buku
+      user.title = editedJudul;
+      user.author = editedPenulis;
+      user.year = parseInt(editedTahun);
+      user.isComplete = editedIsComplete;
+
+      // Update data di local storage
+      putUserList();
+      renderUserList();
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Menangani pengiriman form edit di sini
+      const editedJudul = document.getElementById("edit-judul").value;
+      const editedPenulis = document.getElementById("edit-penulis").value;
+      const editedTahun = document.getElementById("edit-tahun").value;
+      const editedIsComplete = document.getElementById("edit-isComplete").checked;
+
+      // Simpan perubahan ke data buku
+      user.title = editedJudul;
+      user.author = editedPenulis;
+      user.year = parseInt(editedTahun);
+      user.isComplete = editedIsComplete;
+
+      // Update data di local storage
+      putUserList();
+      renderUserList();
+
+      // Menampilkan response popup
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: `Buku ${editedJudul} berhasil diubah`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  });
 }
 
 function deleteBook(user) {
@@ -199,4 +284,6 @@ form.addEventListener("submit", function (event) {
     title: "Berhasil!",
     text: `Buku "${inputJudul}" berhasil ditambahkan`,
   });
+
+  form.reset();
 });
